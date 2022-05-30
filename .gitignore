@@ -1,4 +1,5 @@
 .idea
+docker/.env
 
 public/*
 !public/404.html

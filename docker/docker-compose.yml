@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - php
+    container_name: nginx-doya-fileserver
+    hostname: nginx
+    networks:
+      - fileserver
+    ports:
+      - 10101:80
+    volumes:
+      - ${NGINX_CONF_PATH}:/etc/nginx/conf.d/
+      - ${FILE_PATH}:/usr/share/nginx/html/
+    deploy:
+      restart_policy:
+        condition: on-failure
+  php:
+    image: doyafun-fileserver:latest
+    container_name: doyafun-fileserver
+    hostname: php
+    networks:
+      - fileserver
+    expose:
+      - 10101
+    volumes:
+      - ${FILE_PATH}:/app/public/
+
+networks:
+  fileserver:
+    driver: bridge
