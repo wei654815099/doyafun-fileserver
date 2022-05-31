@@ -21,10 +21,5 @@ Route::group("/api", function (){
     Route::delete("/file/{filename}", [File::class, "destroy"]);
 });
 
-// 设置404路由
-Route::fallback(function(){
-    return json(['code' => 404, 'msg' => '404 not found']);
-});
-
 // 关闭默认路由
 Route::disableDefaultRoute();
